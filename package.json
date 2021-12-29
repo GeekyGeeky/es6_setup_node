@@ -1,0 +1,38 @@
+{
+  "name": "es6_setup_node",
+  "version": "1.0.0",
+  "description": "A simple ES6 setup for node applications",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && babel src --out-dir dist  --copy-files",
+    "start": "node dist/app.js",
+    "start:dev": "nodemon --exec babel-node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeekyGeeky/es6_setup_node.git"
+  },
+  "keywords": [
+    "babel",
+    "node.js",
+    "javascript",
+    "es6"
+  ],
+  "author": "Geeky-Geeky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeekyGeeky/es6_setup_node/issues"
+  },
+  "homepage": "https://github.com/GeekyGeeky/es6_setup_node#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/node": "^7.16.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2"
+  }
+}

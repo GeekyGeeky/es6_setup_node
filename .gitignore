@@ -1,0 +1,9 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+dist
+# dotenv environment variables file
+.env
+.env.test
+.env.production
+.vscode
