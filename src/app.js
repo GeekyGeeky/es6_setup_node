@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import { getTodos, addTodo, updateTodo, deleteTodo } from './store.js';
 
 const app = express();
@@ -39,7 +39,7 @@ app.delete('/todos/:id', (req, res) => {
   if (!success) {
     return res.status(404).json({ error: 'Todo not found' });
   }
-  res.status(204).end();
+  res.status(200).json({ deleted: success });
 });
 
 // Start server
