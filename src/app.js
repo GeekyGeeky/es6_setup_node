@@ -1,5 +1,5 @@
-import express, { json } from 'express';
-import items from './items';
+import express from 'express';
+import { getTodos, addTodo, updateTodo, deleteTodo } from './store.js';
 
 const app = express();
 
@@ -7,12 +7,42 @@ app.use(json())
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/', async (req, res) => {
-    res.json({ status: true, message: "Our node.js app works" })
+// Routes
+app.get('/todos', (req, res) => {
+  res.json(getTodos());
 });
 
-app.get('/items', (req, res) => {
-    res.json({ status: true, message: "Fetched all items", data: items })
-})
+app.post('/todos', (req, res) => {
+  const { title } = req.body;
+  if (!title) {
+    return res.status(400).json({ error: 'Title is required' });
+  }
+  const todo = addTodo(title);
+  res.status(201).json(todo);
+});
 
-app.listen(PORT, () => console.log(`App listening at port ${PORT}`));
+app.put('/todos/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const updates = req.body;
+
+  const updatedTodo = updateTodo(id, updates);
+  if (!updatedTodo) {
+    return res.status(404).json({ error: 'Todo not found' });
+  }
+  res.json(updatedTodo);
+});
+
+app.delete('/todos/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  const success = deleteTodo(id);
+  if (!success) {
+    return res.status(404).json({ error: 'Todo not found' });
+  }
+  res.status(204).end();
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
